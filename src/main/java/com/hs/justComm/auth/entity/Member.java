@@ -1,4 +1,4 @@
-package com.hs.justComm.member.entity;
+package com.hs.justComm.auth.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
