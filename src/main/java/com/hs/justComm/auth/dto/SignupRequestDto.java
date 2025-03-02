@@ -1,12 +1,10 @@
-package com.hs.justComm.member.dto;
+package com.hs.justComm.auth.dto;
 
-import com.hs.justComm.member.entity.Member;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.hs.justComm.auth.entity.Member;
 import lombok.Getter;
 
 @Getter
-public class MemberRequest {
+public class SignupRequestDto {
 
     private String userId;
     private String password;

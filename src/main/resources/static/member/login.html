@@ -2,9 +2,144 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>로그인 화면</title>
+    <title>로그인</title>
+    <style>
+        /* 기본 body 스타일 */
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        /* 중앙에 위치한 카드 형태의 컨테이너 */
+        .signup-container {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        /* 제목 스타일 */
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* 폼 내부 각 항목의 마진 */
+        form div {
+            margin-bottom: 15px;
+        }
+
+        /* 라벨 스타일 */
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        /* 입력 필드 스타일 */
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* 버튼 스타일 */
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background: #28a745;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        /* 결과 메시지 스타일 */
+        #message {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #d9534f;
+        }
+    </style>
 </head>
 <body>
-    <h2>로그인 화면</h2>
+<div class="signup-container">
+    <form id="loginForm">
+        <div>
+            <label for="userId">아이디:</label>
+            <input type="text" id="userId" name="userId" placeholder="아이디 입력"
+                   pattern="^[A-Za-z][A-Za-z0-9]{1,}$"
+                   title="영문+숫자. 숫자로 시작하면 안되며 최소 두 글자 이상이어야 합니다." required/>
+        </div>
+        <div>
+            <label for="password">비밀번호:</label>
+            <input type="password" id="password" name="password" placeholder="비밀번호 입력" required/>
+        </div>
+        <div>
+            <button type="submit">로그인</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    async function login(event) {
+        event.preventDefault();
+
+        const formData = {
+              userId : document.getElementById('userId').value
+            , password : document.getElementById('password').value
+        };
+
+        try {
+            const response = await fetch('/api/auth/login', {
+                method : 'POST',
+                headers : {
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if(!response.ok) {
+                throw new Error('아이디와 비밀번호를 확인하세요.');
+            }
+
+            const data = await response.json();
+
+            alert("로그인 성공");
+
+            window.location.href = "../index.html";
+        } catch(error) {
+            console.error('Error :', error);
+            alert("로그인 실패: " + error.message);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('loginForm').addEventListener('submit', login);
+    });
+
+</script>
 </body>
 </html>
