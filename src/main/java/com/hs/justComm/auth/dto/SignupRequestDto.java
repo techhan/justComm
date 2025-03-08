@@ -13,11 +13,21 @@ public class SignupRequestDto {
     private String job;
     private int age;
 
-
     public Member toEntity() {
         return Member.builder()
                 .userId(this.userId)
                 .password(this.password)
+                .nickname(this.nickname)
+                .email(this.email)
+                .job(this.job)
+                .age(this.age)
+                .build();
+    }
+
+    public Member toEntity(String encodedPassword) {
+        return Member.builder()
+                .userId(this.userId)
+                .password(encodedPassword)
                 .nickname(this.nickname)
                 .email(this.email)
                 .job(this.job)

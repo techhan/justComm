@@ -15,5 +15,6 @@ public class LoginResponseDto {
     private String email;
     private String job;
     private int age;
+    private String token;
 
 }

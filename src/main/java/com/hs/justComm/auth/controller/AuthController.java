@@ -34,13 +34,9 @@ public class AuthController {
     @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequestDto) {
         LoginResponseDto loginResponseDto = authService.login(loginRequestDto);
+        if(loginResponseDto.getToken() == null) {
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("아이디와 비밀번호를 확인해주세요.");
+        }
         return ResponseEntity.ok(loginResponseDto);
-//        if(loginResponseDto != null) {
-//            Authentication authentication = new UsernamePasswordAuthenticationToken(
-//                    loginResponseDto.getUserId(), null, List.of(new SimpleGrantedAuthority("ROLE_USER")));
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-//            return ResponseEntity.ok(loginResponseDto);
-//        }
-//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
     }
 }
